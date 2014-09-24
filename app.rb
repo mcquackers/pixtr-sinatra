@@ -3,24 +3,42 @@ if development?
   require "sinatra/reloader"
 end
 require "pg"
+require "active_record"
 
 GALLERIES = {
   "cats" => ["colonel_meow.jpg", "grumpy_cat.png"],
   "dogs" => ["shibe.png"]
 }
-database = PG.connect({ dbname: "photo_gallery" })
+#database = PG.connect({ dbname: "photo_gallery" })
+ActiveRecord::Base.establish_connection(
+  adapter: "postgresql",
+  database: "photo_gallery")
+
+class Gallery < ActiveRecord::Base
+
+end
+
+class Image < ActiveRecord::Base
+
+end
 
 get "/" do
-  galleries = database.exec_params("
-                                        SELECT name FROM galleries")
-  @gallery_names = galleries.map{ |gallery|
-    gallery["name"]}
-  puts @gallery_names
+  @galleries = Gallery.all
+  @gallery_names = @galleries.map{ |gallery| gallery.name.upcase }
+  #galleries = database.exec_params("
+  #                                      SELECT name FROM galleries")
+  #@gallery_names = galleries.map{ |gallery|
+    #gallery["name"]}
+  #puts @gallery_names
   erb :home
 end
 
-get "/galleries/:name" do
-  @name = params[:name]
-  @images = GALLERIES[@name]
+get "/galleries/:id" do
+  id = params[:id]
+  @gallery = Gallery.find(id)
+  @images = Image.where(gallery_id: id)
+  #query = "SELECT * FROM galleries WHERE id = $1"
+  #images = database.exec_params(query, [id])
+  #@name = images.first["name"]
   erb :gallery
 end
