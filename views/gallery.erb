@@ -1,0 +1,7 @@
+<p>Now viewing the <%= @name %> gallery</p>
+
+<ul>
+  <% @images.each do |image| %>
+    <li><img src="/images/<%= image %>" /></li>
+  <% end %>
+</ul>
