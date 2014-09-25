@@ -52,3 +52,14 @@ get "/galleries/:id" do
   #@name = images.first["name"]
   erb :gallery
 end
+
+get "/galleries/:id/edit" do
+  @gallery = Gallery.find(params[:id])
+  erb :edit_gallery
+end
+patch "/galleries/:id" do
+  id = params[:id]
+  gallery = Gallery.find(id)
+  gallery.update(params[:gallery])
+  redirect to("/galleries/#{id}")
+end

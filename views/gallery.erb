@@ -1,4 +1,5 @@
 <p>Now viewing the <%= @gallery.name %> gallery</p>
+<a href="/galleries/<%= @gallery.id %>/edit">Edit this gallery</a>
 <ul>
   <% @images.each do |image| %>
     <li><img src="<%= image.url %>" /></li>
