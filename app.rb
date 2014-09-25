@@ -43,6 +43,12 @@ post "/galleries" do
 
   redirect to("/")
 end
+delete "/galleries/:id" do
+  id = params[:id]
+  gallery = Gallery.find(id)
+  gallery.destroy
+  redirect to("/")
+end
 get "/galleries/:id" do
   id = params[:id]
   @gallery = Gallery.find(id)

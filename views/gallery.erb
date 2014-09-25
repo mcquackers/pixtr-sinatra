@@ -1,5 +1,10 @@
 <p>Now viewing the <%= @gallery.name %> gallery</p>
 <a href="/galleries/<%= @gallery.id %>/edit">Edit this gallery</a>
+<form action="/galleries/<%= @gallery.id %>" method="POST">
+  <input type="hidden" name="_method" value="DELETE" />
+  <input type="submit" value="Delete Gallery" />
+</form>
+
 <ul>
   <% @images.each do |image| %>
     <li><img src="<%= image.url %>" /></li>
