@@ -33,6 +33,16 @@ get "/" do
   erb :home
 end
 
+get "/galleries/new" do
+  erb :new_gallery
+end
+
+post "/galleries" do
+  new_gallery_name = params[:gallery][:name]
+  Gallery.create(name: new_gallery_name)
+
+  redirect to("/")
+end
 get "/galleries/:id" do
   id = params[:id]
   @gallery = Gallery.find(id)
