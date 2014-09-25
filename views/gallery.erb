@@ -9,5 +9,10 @@
 <ul>
   <% @images.each do |image| %>
     <li><img src="<%= image.url %>" /></li>
+    <form action="/galleries/<%= @gallery.id %>/images/<%= image.id %>" method="POST">
+      <input type="hidden" name="_method" value="DELETE" />
+      <input type="submit" value="Delete this picture" />
+    </form>
+    <a href="/galleries/<%= @gallery.id %>/images/<%= image.id %>/edit">Edit this image</a>
   <% end %>
 </ul>

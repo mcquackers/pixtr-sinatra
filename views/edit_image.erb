@@ -1,0 +1,10 @@
+<form action="/galleries/<%= @gallery.id %>/images/<%= @image.id%>" method="POST">
+<input type="hidden" name="_method" value="PATCH" />
+<label for="name">Image Name</label>
+<input id="name" type="text" name=image[name] value="<%=@image.name%>" />
+
+<label for="URL">Image ID</label>
+<input id="URL" type="text" name=image[url] value="<%=@image.url%>" />
+
+<input type="submit" value="Submit Change" />
+</form>
